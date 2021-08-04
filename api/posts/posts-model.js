@@ -1,4 +1,6 @@
-const db = require('../../data/db-config');
+const knex = require('knex')
+const config = require('../../knexfile')
+const db = knex(config.development);
 
 module.exports = {
   find,
@@ -21,7 +23,7 @@ function findById(id) {
 
 function insert(post) {
   return db('posts')
-    .insert(post)
+    .insert(post, 'id')
     .then(ids => ({ id: ids[0] }));
 }
 
